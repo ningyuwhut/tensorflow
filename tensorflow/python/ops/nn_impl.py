@@ -1234,6 +1234,7 @@ def sampled_softmax_loss(weights,
     A `batch_size` 1-D tensor of per-example sampled softmax losses.
 
   """
+  print("in sampled_softmax_loss")
   logits, labels = _compute_sampled_logits(
       weights=weights,
       biases=biases,
@@ -1247,6 +1248,8 @@ def sampled_softmax_loss(weights,
       remove_accidental_hits=remove_accidental_hits,
       partition_strategy=partition_strategy,
       name=name)
+  print("logits", logits)
+  print("labels", labels)
   sampled_losses = nn_ops.softmax_cross_entropy_with_logits(
       labels=labels, logits=logits)
   # sampled_losses is a [batch_size] tensor.

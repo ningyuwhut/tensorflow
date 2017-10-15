@@ -757,6 +757,7 @@ def embedding_attention_decoder(decoder_inputs,
   Raises:
     ValueError: When output_projection has the wrong shape.
   """
+  print ("in embedding_attention_decoder")
   if output_size is None:
     output_size = cell.output_size
   if output_projection is not None:
@@ -850,9 +851,10 @@ def embedding_attention_seq2seq(encoder_inputs,
         encoder_cell,
         embedding_classes=num_encoder_symbols,
         embedding_size=embedding_size)
+    #num_encoder_symbols表示需要嵌入的词的个数；embedding_size表示词向量的长度
     encoder_outputs, encoder_state = rnn.static_rnn(
         encoder_cell, encoder_inputs, dtype=dtype)
-
+    #encoder_outputs是每个时刻的输出，encoder_state是最后一个时刻的隐含状态
     # First calculate a concatenation of encoder outputs to put attention on.
     top_states = [
         array_ops.reshape(e, [-1, 1, cell.output_size]) for e in encoder_outputs
